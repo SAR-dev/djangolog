@@ -20,6 +20,9 @@ class Tag(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
+    
+    def __str__(self):
+        return str(self.name)
 
 @receiver(pre_save, sender=Tag)
 def unique_slug(sender, instance, *args, **kwargs):

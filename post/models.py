@@ -39,4 +39,4 @@ class Post(models.Model):
         ordering = ('-id',)
         
     def __str__(self):
-        return str(self.author)
+        return str(self.title)
