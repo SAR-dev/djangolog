@@ -21,6 +21,9 @@ class Category(models.Model):
 
     objects = models.Manager()
 
+    def __str__(self):
+        return str(self.name)
+
 @receiver(pre_save, sender=Category)
 def unique_slug(sender, instance, *args, **kwargs):
     if len(instance.slug) == 0:

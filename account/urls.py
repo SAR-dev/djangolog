@@ -1,5 +1,5 @@
 from django.urls import path
-from account.views import MeRetriveView, MeAvatarUpdateView
+from .views import MeRetriveView, MeAvatarUpdateView
 
 app_name = 'account'
 
