@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'post',
     'image',
     'category',
-    'tag'
+    'tag',
+    'contact'
 ]
 
 MIDDLEWARE = [
