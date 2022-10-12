@@ -12,13 +12,3 @@ class ImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ['id', 'image', 'description']
-        
-class ImageRetriveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['id', 'image', 'height', 'width', 'author']
-        
-class ImageUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['id', 'description']

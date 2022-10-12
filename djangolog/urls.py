@@ -15,4 +15,7 @@ urlpatterns = [
     path('api/account/', include('account.urls', namespace='account')),
     path('api/image/', include('image.urls', namespace='image')),
     path('api/post/', include('post.urls', namespace='post')),
+    path('api/category/', include('category.urls', namespace='category')),
+    path('api/tag/', include('tag.urls', namespace='tag')),
+    path('api/contact/', include('contact.urls', namespace='contact')),
 ]

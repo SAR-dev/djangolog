@@ -21,6 +21,9 @@ class Category(models.Model):
 
     objects = models.Manager()
 
+    class Meta:
+        verbose_name_plural = "categories"
+
     def __str__(self):
         return str(self.name)
 
