@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'account',
-    'post',
     'image',
     'category',
     'tag',
