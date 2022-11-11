@@ -1,3 +1,2 @@
-gig
-profiles
 package
+rating

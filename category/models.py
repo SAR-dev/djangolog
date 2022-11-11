@@ -8,14 +8,14 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, null=True, blank=True)
     slug = models.SlugField(max_length=50 ,unique=True, validators=[
         RegexValidator(
             regex='^[a-z0-9_-]{3,50}$',
             message="Invalid slug format! Slug should be between 3-50 characters. Use hyphen '-' or underscore '_' between letters if needed. ",
         ),
     ])
-    label = models.CharField(max_length=500)
+    label = models.CharField(max_length=500, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

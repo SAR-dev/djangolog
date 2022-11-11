@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Tag(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, null=True, blank=True)
     slug = models.SlugField(max_length=50 ,unique=True, validators=[
         RegexValidator(
             regex='^[a-z0-9_-]{3,50}$',

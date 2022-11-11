@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Gig
 
-# Register your models here.
+@admin.register(Gig)
+class GigAdmin(admin.ModelAdmin):
+    pass
