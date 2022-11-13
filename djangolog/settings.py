@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'contact',
     'comment',
     'gig',
-    'profiles'
+    'profiles',
+    'rating',
+    'chat'
 ]
 
 MIDDLEWARE = [
