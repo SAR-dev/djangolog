@@ -1,13 +1,16 @@
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.core.validators import RegexValidator
-from django.dispatch import receiver
-from django.db.models.signals import pre_save
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFit
-from django.utils.deconstruct import deconstructible
 import os
 from uuid import uuid4
+
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
+from django.core.validators import RegexValidator
+from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.deconstruct import deconstructible
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFit
+
 
 @deconstructible
 class RenameAndRelocateImage(object):
@@ -66,9 +69,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=True)
     avatar = ProcessedImageField(upload_to=rename_and_relocate_avatar,
                                  default='images/avatar.jpg',
-                                 processors=[ResizeToFit(width=200)],
-                                 format='JPEG',
-                                 options={'quality': 60})
+                                 processors=[ResizeToFit(width=200)],  # type: ignore
+                                 format='JPEG',  # type: ignore
+                                 options={'quality': 60})  # type: ignore
     
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)

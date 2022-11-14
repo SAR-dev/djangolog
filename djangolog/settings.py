@@ -57,8 +57,6 @@ INSTALLED_APPS = [
     'profiles',
     'rating',
     'chat',
-
-    'django_seed'
 ]
 
 MIDDLEWARE = [
