@@ -1,4 +1,5 @@
 from django.db import models
+from gig.models import Gig
 from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
@@ -68,6 +69,7 @@ class Profiles(models.Model):
         size=8,
         default=list
     )
+    bookmarks = models.ManyToManyField(Gig, related_name="bookmarks")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
