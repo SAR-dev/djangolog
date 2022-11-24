@@ -11,7 +11,7 @@ class Rating(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
     gig = models.ForeignKey(Gig, on_delete=models.CASCADE, null=True, blank=True)
-    value = models.IntegerField(default=0)
+    value = models.IntegerField(default=1)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -19,4 +19,4 @@ class Rating(models.Model):
     objects = models.Manager()
     
     def __str__(self):
-        return str(self.title)
+        return str(self.author)
