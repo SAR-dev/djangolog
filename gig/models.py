@@ -22,7 +22,6 @@ class Gig(models.Model):
     specializations = ArrayField(
         models.CharField(max_length=10, blank=True), size=8, default=list
     )
-
     tags = models.ManyToManyField(
         Tag, related_name="gig_tags", default=None, blank=True
     )

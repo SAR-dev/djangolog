@@ -4,6 +4,8 @@ from gig.serializers import GigSerializer
 from rest_framework import generics, views, response, permissions, exceptions, status
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
+from django_filters import rest_framework as filters
+from utils.paginations import PazeSizePagination
 
 class IsGigAuthor(permissions.BasePermission):
     message = 'You can not view this route!'
@@ -15,6 +17,21 @@ class IsGigAuthor(permissions.BasePermission):
             return author
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
+        
+class GigFilter(filters.FilterSet):
+    o = filters.OrderingFilter(
+        fields=(
+            ('title', 'title'),
+            ('created_at', 'created_at'),
+        ),
+    )
+    class Meta:
+        model = Gig
+        fields = {
+            'title': ['icontains'],
+            'description': ['icontains'],
+            'category__slug': ['exact']
+        }
 
 class GigCategoryListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
@@ -23,6 +40,8 @@ class GigCategoryListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Gig.objects.all()
     serializer_class = GigSerializer
+    pagination_class = PazeSizePagination
+    filterset_class = GigFilter
 
 class GigRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]

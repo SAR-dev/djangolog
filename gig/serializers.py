@@ -3,8 +3,6 @@ from .models import Gig
 
 
 class GigSerializer(serializers.ModelSerializer):
-    languages = serializers.ListField(child=serializers.CharField())
-    
     class Meta:
         model = Gig
         fields = [
