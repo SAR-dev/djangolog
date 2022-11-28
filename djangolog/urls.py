@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/category/', include('category.urls', namespace='category')),
     path('api/tag/', include('tag.urls', namespace='tag')),
     path('api/contact/', include('contact.urls', namespace='contact')),
+    path('api/gig/', include('gig.urls', namespace='gig')),
 ]
