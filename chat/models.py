@@ -18,4 +18,4 @@ class Chat(models.Model):
     objects = models.Manager()
     
     def __str__(self):
-        return str(self.title)
+        return str(self.message)

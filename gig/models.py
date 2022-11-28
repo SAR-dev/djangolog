@@ -4,7 +4,9 @@ from django.contrib.postgres.fields import ArrayField
 from category.models import Category
 from tag.models import Tag
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
+
 
 class Gig(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,30 +14,26 @@ class Gig(models.Model):
     description = models.TextField()
     images = models.ManyToManyField(Image, related_name="gig_images")
     languages = ArrayField(
-        ArrayField(
-            models.CharField(max_length=10, blank=True),
-            size=8,
-        ),
-        size=8,
+        models.CharField(max_length=10, blank=True), size=8, default=list
     )
     expertises = ArrayField(
-        ArrayField(
-            models.CharField(max_length=10, blank=True),
-            size=8,
-        ),
-        size=8,
+        models.CharField(max_length=10, blank=True), size=8, default=list
     )
     specializations = ArrayField(
-        ArrayField(
-            models.CharField(max_length=10, blank=True),
-            size=8,
-        ),
-        size=8,
+        models.CharField(max_length=10, blank=True), size=8, default=list
     )
 
-    tags = models.ManyToManyField(Tag, related_name='gig_tags', default=None, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='gig_category', default=None, blank=True)
-    
+    tags = models.ManyToManyField(
+        Tag, related_name="gig_tags", default=None, blank=True
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="gig_category",
+        default=None,
+        blank=True,
+    )
+
     upvotes = models.ManyToManyField(User, related_name="gig_upvotes")
     downvotes = models.ManyToManyField(User, related_name="gig_downvotes")
 
@@ -47,11 +45,10 @@ class Gig(models.Model):
     @property
     def num_vote_up(self):
         return self.upvotes.count()
-    
+
     @property
     def num_vote_down(self):
         return self.downvotes.count()
-    
+
     def __str__(self):
         return str(self.title)
-    
