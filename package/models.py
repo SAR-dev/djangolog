@@ -13,14 +13,14 @@ class Package(models.Model):
     duration_in_days = models.IntegerField()
     enabled_services = ArrayField(
         ArrayField(
-            models.CharField(max_length=10, blank=True),
+            models.CharField(max_length=100, blank=True),
             size=8,
         ),
         size=8,
     )
     disabled_services = ArrayField(
         ArrayField(
-            models.CharField(max_length=10, blank=True),
+            models.CharField(max_length=100, blank=True),
             size=8,
         ),
         size=8,
