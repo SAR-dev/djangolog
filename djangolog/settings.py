@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
@@ -164,3 +166,11 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dhesplcua',
+    'API_KEY': '229894744712582',
+    'API_SECRET': '-tEgEd7jxIEjtive7WTaZ5fc38E'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
