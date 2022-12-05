@@ -36,5 +36,13 @@ class Comment(models.Model):
     comments = CommentWithoutRating()
     ratings = CommentWithRating()
 
+    @property
+    def num_vote_up(self):
+        return self.upvotes.count()
+
+    @property
+    def num_vote_down(self):
+        return self.downvotes.count()
+
     def __str__(self):
         return str(self.message[:30])

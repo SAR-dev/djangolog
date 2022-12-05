@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from gig.models import Gig
-from gig.serializers import GigWriteSerializer, GigReadSerializer
+from .models import Gig
+from .serializers import GigWriteSerializer, GigReadSerializer
 from rest_framework import generics, views, response, permissions, exceptions, status
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
