@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from gig.models import Gig
-from gig.serializers import GigSerializer
+from gig.serializers import GigWriteSerializer, GigReadSerializer
 from rest_framework import generics, views, response, permissions, exceptions, status
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
@@ -33,18 +33,30 @@ class GigFilter(filters.FilterSet):
             'category__slug': ['exact']
         }
 
-class GigCategoryListCreateView(generics.ListCreateAPIView):
+class GigCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
     permission_classes = [permissions.IsAuthenticated]
     queryset = Gig.objects.all()
-    serializer_class = GigSerializer
+    serializer_class = GigWriteSerializer
     pagination_class = PazeSizePagination
     filterset_class = GigFilter
 
-class GigRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class GigListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Gig.objects.all()
-    serializer_class = GigSerializer
+    serializer_class = GigReadSerializer
+    pagination_class = PazeSizePagination
+    filterset_class = GigFilter
+
+class GigRetriveView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Gig.objects.all()
+    serializer_class = GigReadSerializer
+
+class GigUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsGigAuthor]
+    queryset = Gig.objects.all()
+    serializer_class = GigWriteSerializer
 

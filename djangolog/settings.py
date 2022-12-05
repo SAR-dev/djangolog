@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "comment",
     "gig",
     "profiles",
-    "rating",
     "chat",
     "package"
 ]

@@ -12,18 +12,20 @@ class Gig(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, null=True, blank=True)
     description = models.TextField()
-    images = models.ManyToManyField(Image, related_name="gig_images")
+    images = models.ManyToManyField(
+        Image, related_name="gig_images", blank=True
+    )
     languages = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     expertises = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     specializations = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     tags = models.ManyToManyField(
-        Tag, related_name="gig_tags", default=None, blank=True
+        Tag, related_name="gig_tags", blank=True
     )
     category = models.ForeignKey(
         Category,
