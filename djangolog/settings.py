@@ -168,9 +168,9 @@ SIMPLE_JWT = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dhesplcua',
-    'API_KEY': '229894744712582',
-    'API_SECRET': '-tEgEd7jxIEjtive7WTaZ5fc38E'
+    'CLOUD_NAME': 'dp950wcde',
+    'API_KEY': '757696267355543',
+    'API_SECRET': 'xOltrBktHa6DrUcCNGtYwJYDfic'
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
