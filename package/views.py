@@ -33,7 +33,7 @@ class PackageFilter(filters.FilterSet):
             'gig__id': ['exact']
         }
 
-class PackageCreateView(generics.ListCreateAPIView):
+class PackageCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 

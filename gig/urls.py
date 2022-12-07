@@ -5,7 +5,7 @@ app_name = 'gig'
 
 urlpatterns = [
     path('', GigCreateView.as_view(), name='gig-create'),
-    path('', GigListView.as_view(), name='gig-list'),
+    path('list/', GigListView.as_view(), name='gig-list'),
     path('<pk>/', GigRetriveView.as_view(), name='gig-retrive'),
-    path('<pk>/', GigUpdateDestroyView.as_view(), name='gig-update-destroy'),
+    path('<pk>/update/', GigUpdateDestroyView.as_view(), name='gig-update-destroy'),
 ]

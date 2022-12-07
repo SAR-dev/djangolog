@@ -20,4 +20,5 @@ urlpatterns = [
     path('api/gig/', include('gig.urls', namespace='gig')),
     path('api/comment/', include('comment.urls', namespace='comment')),
     path('api/package/', include('package.urls', namespace='package')),
+    path('api/chat/', include('chat.urls', namespace='chat')),
 ]

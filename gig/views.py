@@ -33,7 +33,7 @@ class GigFilter(filters.FilterSet):
             'category__slug': ['exact']
         }
 
-class GigCreateView(generics.ListCreateAPIView):
+class GigCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 

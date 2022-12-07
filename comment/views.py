@@ -32,11 +32,11 @@ class CommentFilter(filters.FilterSet):
             'gig__id': ['exact']
         }
 
-class CommentCreateView(generics.ListCreateAPIView):
+class CommentCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         rated = False
-        if self.request.data["rating"]:
-            rated = Comment.ratings.filter(gig_id=self.request.data['gig']).exists()
+        if self.request.data["rating"]:  # type: ignore
+            rated = Comment.ratings.filter(gig_id=self.request.data['gig']).exists()  # type: ignore
         if(rated == True):
             raise NotFound(detail="Error 404, You have already rated this gig!", code=404)
         else:
