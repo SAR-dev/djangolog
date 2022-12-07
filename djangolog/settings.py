@@ -23,10 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_fz4(iiw+j2*3t*+#vi#%sf63j7-rk94-*&@ad9k=*t6ue7zs@"
+SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-_fz4(iiw+j2*3t*+#vi#%sf63j7-rk94-*&@ad9k=*t6ue7zs@')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+RENDER = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ["*"]
 
@@ -63,6 +65,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # DEV
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -96,16 +99,9 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'byctjwtb',
-         'USER': 'byctjwtb',
-         'PASSWORD': 'dH8JlKXqo8vzp2pFtFIHScZBYq6fHBTT',
-         'HOST': 'arjuna.db.elephantsql.com',
-         'PORT': '5432',
-
-     }
+    'default': dj_database_url.config(default='postgres://byctjwtb:dH8JlKXqo8vzp2pFtFIHScZBYq6fHBTT@arjuna.db.elephantsql.com/byctjwtb')
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -163,6 +159,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+if RENDER == 'RENDER':
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
