@@ -95,7 +95,17 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.config(default='postgres://byctjwtb:dH8JlKXqo8vzp2pFtFIHScZBYq6fHBTT@arjuna.db.elephantsql.com/byctjwtb')}
+DATABASES = {
+    'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'protefalan',
+         'USER': 'protefalan_user',
+         'PASSWORD': 'HnHO47iXT6KwkcSUhxbbh0LFEVr2iR4S',
+         'HOST': 'dpg-ce838hpgp3jic2e4liug-a.singapore-postgres.render.com',
+         'PORT': '5432',
+
+     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
