@@ -62,17 +62,29 @@ INSTALLED_APPS = [
     "package"
 ]
 
-MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",  # DEV
-    "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
+if RENDER == 'RENDER':
+    MIDDLEWARE = [
+        "corsheaders.middleware.CorsMiddleware",  # DEV
+        "django.middleware.security.SecurityMiddleware",
+        'whitenoise.middleware.WhiteNoiseMiddleware', 
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
+else:
+    MIDDLEWARE = [
+        "corsheaders.middleware.CorsMiddleware",  # DEV
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
 
 ROOT_URLCONF = "djangolog.urls"
 
@@ -99,7 +111,7 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://byctjwtb:dH8JlKXqo8vzp2pFtFIHScZBYq6fHBTT@arjuna.db.elephantsql.com/byctjwtb')
+    'default': dj_database_url.config(default='postgres://testo_y2tu_user:bHqk8c3OpHg4j49xQIfFGAxn8dSPu2rS@dpg-ce9sa382i3mjnn94sa30-a.singapore-postgres.render.com/testo_y2tu')
 }
 
 # Password validation
