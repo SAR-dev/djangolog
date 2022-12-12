@@ -111,8 +111,13 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+if RENDER == 'RENDER':
+    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db'
+else:
+    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a/protefalan_db'
+
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a/protefalan_db')
+    'default': dj_database_url.config(default='postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db')
 }
 
 # Password validation
