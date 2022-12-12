@@ -112,7 +112,7 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://testo_y2tu_user:bHqk8c3OpHg4j49xQIfFGAxn8dSPu2rS@dpg-ce9sa382i3mjnn94sa30-a.singapore-postgres.render.com/testo_y2tu')
+    'default': dj_database_url.config(default='postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a/protefalan_db')
 }
 
 # Password validation
