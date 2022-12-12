@@ -41,10 +41,16 @@ class GigWriteSerializer(serializers.ModelSerializer):
         read_only_fields = []
 
     def get_upvoted(self, obj):
-        return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_downvoted(self, obj):
-        return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_total_ratings(self, obj):
         return Comment.ratings.filter(gig_id = obj.id).count()
@@ -89,10 +95,16 @@ class GigReadSerializer(serializers.ModelSerializer):
         read_only_fields = []
 
     def get_upvoted(self, obj):
-        return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_downvoted(self, obj):
-        return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_total_ratings(self, obj):
         return Comment.ratings.filter(gig_id = obj.id).count()

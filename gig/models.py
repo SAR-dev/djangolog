@@ -35,8 +35,8 @@ class Gig(models.Model):
         blank=True,
     )
 
-    upvotes = models.ManyToManyField(User, related_name="gig_upvotes")
-    downvotes = models.ManyToManyField(User, related_name="gig_downvotes")
+    upvotes = models.ManyToManyField(User, related_name="gig_upvotes",  default=None, blank=True)
+    downvotes = models.ManyToManyField(User, related_name="gig_downvotes",  default=None, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

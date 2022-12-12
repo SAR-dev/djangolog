@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import Category
 from gig.models import Gig
+from comment.models import Comment
 from account.serializers import UserSerializer
 from image.serializers import ImageSerializer
 from tag.serializers import TagSerializer
+from django.db.models import Avg
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,14 +16,14 @@ class CategoryFeedSerializer(serializers.ModelSerializer):
     gigs = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug', 'gigs']
 
     def get_gigs(self, obj):
-        objects = GigReadSerializer(data=Gig.objects.filter(category_id=obj.id)[:10], many=True)
+        objects = GigFeedSerializer(data=Gig.objects.filter(category_id=obj.id)[:5], many=True)
         objects.is_valid()
         return objects.data
 
-class GigReadSerializer(serializers.ModelSerializer):
+class GigFeedSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     images = ImageSerializer(many=True)
     num_vote_up = serializers.ReadOnlyField()
@@ -57,10 +59,16 @@ class GigReadSerializer(serializers.ModelSerializer):
         read_only_fields = []
 
     def get_upvoted(self, obj):
-        return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.upvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_downvoted(self, obj):
-        return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        try:
+            return obj.downvotes.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
     
     def get_total_ratings(self, obj):
         return Comment.ratings.filter(gig_id = obj.id).count()
