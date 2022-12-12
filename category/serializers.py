@@ -10,13 +10,13 @@ from django.db.models import Avg
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'label', 'slug']
 
 class CategoryFeedSerializer(serializers.ModelSerializer):
     gigs = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'gigs']
+        fields = ['id', 'name',  'label', 'slug', 'gigs']
 
     def get_gigs(self, obj):
         objects = GigFeedSerializer(data=Gig.objects.filter(category_id=obj.id)[:5], many=True)
