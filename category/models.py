@@ -15,6 +15,12 @@ class Category(models.Model):
             message="Invalid slug format! Slug should be between 3-50 characters. Use hyphen '-' or underscore '_' between letters if needed. ",
         ),
     ])
+    color = models.CharField(max_length=100, default="#d5b60a", validators=[
+        RegexValidator(
+            regex='^#[0-9a-fA-F]{6}$',
+            message="Invalid color format. RGB hex color format needed.",
+        ),
+    ])
     label = models.CharField(max_length=500, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
