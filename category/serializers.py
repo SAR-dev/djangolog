@@ -40,7 +40,6 @@ class GigFeedSerializer(serializers.ModelSerializer):
             "id",
             "author",
             "title",
-            "description",
             "images",
             "languages",
             "expertises",
