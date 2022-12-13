@@ -19,7 +19,7 @@ class CategoryFeedSerializer(serializers.ModelSerializer):
         fields = ['id', 'name',  'label', 'slug', 'color', 'gigs']
 
     def get_gigs(self, obj):
-        objects = GigFeedSerializer(data=Gig.objects.filter(category_id=obj.id)[:5], many=True)
+        objects = GigFeedSerializer(data=Gig.objects.filter(category_id=obj.id)[:8], many=True)
         objects.is_valid()
         return objects.data
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GigCreateView, GigListView, GigRetriveView, GigUpdateDestroyView
+from .views import GigCreateView, GigListView, GigRetriveView, GigUpdateDestroyView, GigUpVoteView, GigDownVoteView
 
 app_name = 'gig'
 
@@ -8,4 +8,6 @@ urlpatterns = [
     path('list/', GigListView.as_view(), name='gig-list'),
     path('<pk>/', GigRetriveView.as_view(), name='gig-retrive'),
     path('<pk>/update/', GigUpdateDestroyView.as_view(), name='gig-update-destroy'),
+    path('<int:pk>/vote/up/', GigUpVoteView.as_view(), name='gig-upvote'),
+    path('<int:pk>/vote/down/', GigDownVoteView.as_view(), name='gig-downvote'),
 ]
