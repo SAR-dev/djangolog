@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from rest_framework_simplejwt.views import TokenVerifyView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,4 +23,4 @@ urlpatterns = [
     path('api/comment/', include('comment.urls', namespace='comment')),
     path('api/package/', include('package.urls', namespace='package')),
     path('api/chat/', include('chat.urls', namespace='chat')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
