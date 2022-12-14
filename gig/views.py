@@ -131,3 +131,12 @@ class GigDownVoteView(views.APIView):
             )
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
+        
+class GigUpvotedListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GigReadSerializer
+    pagination_class = PazeSizePagination
+    filterset_class = GigFilter
+
+    def get_queryset(self):
+        return Gig.objects.filter(upvotes__id=self.request.user.id)
