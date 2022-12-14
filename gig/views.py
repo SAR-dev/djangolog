@@ -34,6 +34,8 @@ class GigFilter(filters.FilterSet):
             "title": ["icontains"],
             "description": ["icontains"],
             "category__slug": ["exact"],
+            "author__id": ["exact"],
+            "author__username": ["exact"]
         }
 
 
