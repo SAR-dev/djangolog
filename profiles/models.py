@@ -53,23 +53,18 @@ class Profiles(models.Model):
     )
     website = models.URLField(max_length=100, unique=True, null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
-    # level
-    # tagline
-    # about me
-    # delivery count
-    # district
-    # address
+    tagline = models.CharField(max_length=100, null=True, blank=True)
     languages = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     facebook = models.URLField(max_length=100, null=True, blank=True)
     github = models.URLField(max_length=100, null=True, blank=True)
     twitter = models.URLField(max_length=100, null=True, blank=True)
     educations = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     certifications = ArrayField(
-        models.CharField(max_length=10, blank=True), size=8, default=list
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     bookmarks = models.ManyToManyField(Gig, related_name="bookmarks")
 

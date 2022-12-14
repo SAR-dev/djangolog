@@ -12,18 +12,10 @@ class Package(models.Model):
     description = models.TextField()
     duration_in_days = models.IntegerField()
     enabled_services = ArrayField(
-        ArrayField(
-            models.CharField(max_length=100, blank=True),
-            size=8,
-        ),
-        size=8,
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     disabled_services = ArrayField(
-        ArrayField(
-            models.CharField(max_length=100, blank=True),
-            size=8,
-        ),
-        size=8,
+        models.CharField(max_length=100, blank=True), size=8, default=list
     )
     revisions = models.IntegerField()
 
