@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from .models import Gig
+from package.models import Package
 from comment.models import Comment
 from account.serializers import UserSerializer
 from tag.serializers import TagSerializer
 from category.serializers import CategorySerializer
 from image.serializers import ImageSerializer
 from django.db.models import Avg
+from package.serializers import PackageReadSerializer
 
 class GigWriteSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
@@ -69,6 +71,7 @@ class GigReadSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     total_ratings = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
+    packages = serializers.SerializerMethodField()
 
     class Meta:
         model = Gig
@@ -89,6 +92,7 @@ class GigReadSerializer(serializers.ModelSerializer):
             "downvoted",
             "total_ratings",
             "average_rating",
+            "packages",
             "created_at",
             "updated_at",
         ]
@@ -111,4 +115,9 @@ class GigReadSerializer(serializers.ModelSerializer):
     
     def get_average_rating(self, obj):
         return Comment.ratings.filter(gig_id = obj.id).aggregate(Avg("rating"))
+    
+    def get_packages(self, obj):
+        objects = PackageReadSerializer(data=Package.objects.filter(gig_id=obj.id), many=True)
+        objects.is_valid()
+        return objects.data
     
