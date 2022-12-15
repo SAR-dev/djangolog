@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Gig
 from package.models import Package
 from comment.models import Comment
-from account.serializers import UserSerializer
+from account.serializers import UserSerializer, UserWithRatingsSerializer
 from tag.serializers import TagSerializer
 from category.serializers import CategorySerializer
 from image.serializers import ImageSerializer
@@ -61,7 +61,7 @@ class GigWriteSerializer(serializers.ModelSerializer):
         return Comment.ratings.filter(gig_id = obj.id).aggregate(Avg("rating"))
 
 class GigReadSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = UserWithRatingsSerializer(read_only=True)
     images = ImageSerializer(many=True)
     num_vote_up = serializers.ReadOnlyField()
     num_vote_down = serializers.ReadOnlyField()

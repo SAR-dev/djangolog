@@ -2,6 +2,8 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
+from comment.models import Comment
+from django.db.models import Avg
 User = get_user_model()
 
 class UserUpdateSerializer(serializers.ModelSerializer):
@@ -55,3 +57,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "username", "avatar"]
+    
+class UserWithRatingsSerializer(serializers.ModelSerializer):
+    total_ratings = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username", "avatar", "total_ratings", "average_rating"]
+
+    def get_total_ratings(self, obj):
+        return Comment.ratings.filter(gig__author_id = obj.id).count()
+    
+    def get_average_rating(self, obj):
+        return Comment.ratings.filter(gig__author_id = obj.id).aggregate(Avg("rating"))
