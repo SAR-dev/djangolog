@@ -26,7 +26,8 @@ class Profiles(models.Model):
 
     author = models.OneToOneField(User, on_delete=models.CASCADE)
     nick_name = models.CharField(max_length=100, null=True, blank=True)
-    bio = models.CharField(max_length=250, null=True, blank=True)
+    bio = models.CharField(max_length=500, null=True, blank=True)
+    quote = models.CharField(max_length=100, null=True, blank=True)
     blood_group = models.CharField(
         max_length=100, null=True, blank=True, choices=BLOOD_GROUPS
     )
