@@ -67,7 +67,7 @@ class UserWithRatingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "username", "avatar", "total_ratings", "average_rating", "created_at", "updated_at", "profile"]
+        fields = ["first_name", "last_name", "username", "avatar", "total_ratings", "average_rating", "date_joined", "profile"]
 
     def get_total_ratings(self, obj):
         return Comment.ratings.filter(gig__author_id = obj.id).count()
