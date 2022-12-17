@@ -54,7 +54,6 @@ class Profiles(models.Model):
     )
     website = models.URLField(max_length=100, unique=True, null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
-    tagline = models.CharField(max_length=100, null=True, blank=True)
     languages = ArrayField(
         models.CharField(max_length=100, blank=True), size=8, default=list
     )

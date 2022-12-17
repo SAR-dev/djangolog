@@ -34,6 +34,9 @@ class Gig(models.Model):
         default=None,
         blank=True,
     )
+    faq = ArrayField(
+        models.CharField(max_length=500, blank=True), size=8, default=list
+    )
 
     upvotes = models.ManyToManyField(User, related_name="gig_upvotes",  default=None, blank=True)
     downvotes = models.ManyToManyField(User, related_name="gig_downvotes",  default=None, blank=True)
