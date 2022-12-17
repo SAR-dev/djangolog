@@ -43,7 +43,6 @@ class GigFeedSerializer(serializers.ModelSerializer):
             "images",
             "tags",
             "category",
-            "gig",
             "num_vote_up",
             "num_vote_down",
             "upvoted",
