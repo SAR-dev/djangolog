@@ -21,8 +21,6 @@ class IsCommentAuthor(permissions.BasePermission):
 class CommentFilter(filters.FilterSet):
     o = filters.OrderingFilter(
         fields=(
-            ('num_vote_up', 'num_vote_up'),
-            ('num_vote_down', 'num_vote_down'),
             ('created_at', 'created_at'),
         ),
     )
