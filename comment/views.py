@@ -27,7 +27,8 @@ class CommentFilter(filters.FilterSet):
     class Meta:
         model = Comment
         fields = {
-            'gig__id': ['exact']
+            'gig__id': ['exact'],
+            'gig__author__username': ['exact'],
         }
 
 class CommentCreateView(generics.CreateAPIView):

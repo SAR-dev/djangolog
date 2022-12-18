@@ -19,6 +19,16 @@ class IsGigAuthor(permissions.BasePermission):
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
 
+class CheckIfGigMaxed(permissions.BasePermission):
+    message = "You already have maximum amount (10) of gigs!"
+
+    def has_permission(self, request, view):
+        try:
+            gigs = Gig.objects.filter(author__username=request.user.username)
+            return gigs.count() <= 10
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
 
 class GigFilter(filters.FilterSet):
     o = filters.OrderingFilter(
@@ -43,7 +53,7 @@ class GigCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [CheckIfGigMaxed]
     queryset = Gig.objects.all()
     serializer_class = GigWriteSerializer
     pagination_class = PazeSizePagination
