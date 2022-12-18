@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/comment/', include('comment.urls', namespace='comment')),
     path('api/package/', include('package.urls', namespace='package')),
     path('api/chat/', include('chat.urls', namespace='chat')),
+    path('api/profile/', include('profiles.urls', namespace='profile')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
