@@ -73,3 +73,34 @@ class ProfilesUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsProfilesAuthor]
     queryset = Profiles.objects.all()
     serializer_class = ProfilesWriteSerializer
+
+class FollowView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, username):
+        try:
+            profile = Profiles.objects.get(author__username=username)
+            if request.user not in profile.followers.all():
+                profile.followers.add(request.user)
+
+            count = profile.followers.count()
+            return response.Response({
+                'following': True,
+                'followers_count': count,
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+    def delete(self, request, username):
+        try:
+            profile = Profiles.objects.get(author__username=username)
+            if request.user in profile.followers.all():
+                profile.followers.remove(request.user)
+
+            count = profile.followers.count()
+            return response.Response({
+                'following': False,
+                'followers_count': count,
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
