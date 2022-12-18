@@ -4,7 +4,6 @@ from gig.models import Gig
 from comment.models import Comment
 from account.serializers import UserSerializer
 from image.serializers import ImageSerializer
-from tag.serializers import TagSerializer
 from django.db.models import Avg
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -30,7 +29,6 @@ class GigFeedSerializer(serializers.ModelSerializer):
     num_vote_down = serializers.ReadOnlyField()
     upvoted = serializers.SerializerMethodField()
     downvoted = serializers.SerializerMethodField()
-    tags = TagSerializer(read_only=True, many=True)
     total_ratings = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
 

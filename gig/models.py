@@ -2,7 +2,6 @@ from django.db import models
 from image.models import Image
 from django.contrib.postgres.fields import ArrayField
 from category.models import Category
-from tag.models import Tag
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -24,8 +23,8 @@ class Gig(models.Model):
     specializations = ArrayField(
         models.CharField(max_length=100, blank=True), size=8, default=list
     )
-    tags = models.ManyToManyField(
-        Tag, related_name="gig_tags", blank=True
+    tags = ArrayField(
+        models.CharField(max_length=20, blank=True), size=8, default=list
     )
     category = models.ForeignKey(
         Category,
