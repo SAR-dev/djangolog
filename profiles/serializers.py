@@ -81,8 +81,13 @@ class ProfilesReadSerializer(serializers.ModelSerializer):
         read_only_fields = []
 
     def get_following(self, obj):
-        return obj.followers.filter(pk=self.context.get('request').user.id).exists()
-
+        try:
+            return obj.followers.filter(pk=self.context.get('request').user.id).exists()
+        except:
+            return False
+            
     def get_owner(self, obj):
-        return obj.author == self.context.get('request').user
- 
+        try:
+            return obj.author == self.context.get('request').user
+        except:
+            return False
