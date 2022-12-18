@@ -8,7 +8,7 @@ User = get_user_model()
 class UserProfileSerializer(serializers.ModelSerializer):
     total_ratings = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
-
+    
     class Meta:
         model = User
         fields = ["first_name", "last_name", "username", "avatar", "total_ratings", "average_rating", "date_joined"]
@@ -49,6 +49,8 @@ class ProfilesWriteSerializer(serializers.ModelSerializer):
 class ProfilesReadSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
     author = UserProfileSerializer(read_only=True)
+    following = serializers.SerializerMethodField()
+    followers_count = serializers.ReadOnlyField()
 
     class Meta:
         model = Profiles
@@ -71,10 +73,15 @@ class ProfilesReadSerializer(serializers.ModelSerializer):
             "educations",
             "certifications",
             "owner",
+            "following",
+            "followers_count",
             "created_at",
             "updated_at",
         ]
         read_only_fields = []
+
+    def get_following(self, obj):
+        return obj.followers.filter(pk=self.context.get('request').user.id).exists()
 
     def get_owner(self, obj):
         return obj.author == self.context.get('request').user

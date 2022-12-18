@@ -67,6 +67,7 @@ class Profiles(models.Model):
         models.CharField(max_length=100, blank=True), size=8, default=list
     )
     bookmarks = models.ManyToManyField(Gig, related_name="bookmarks")
+    followers = models.ManyToManyField(User, related_name='followers', default=None, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,6 +77,10 @@ class Profiles(models.Model):
     class Meta:
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
+
+    @property
+    def followers_count(self):
+        return self.followers.count()
 
     def __str__(self):
         return str(self.author)
