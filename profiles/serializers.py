@@ -28,6 +28,8 @@ class ProfilesWriteSerializer(serializers.ModelSerializer):
         read_only_fields = ["author"]
 
 class ProfilesReadSerializer(serializers.ModelSerializer):
+    owner = serializers.SerializerMethodField()
+
     class Meta:
         model = Profiles
         fields = [
@@ -48,8 +50,12 @@ class ProfilesReadSerializer(serializers.ModelSerializer):
             "github",
             "educations",
             "certifications",
+            "owner",
             "created_at",
             "updated_at",
         ]
         read_only_fields = []
+
+    def get_owner(self, obj):
+        return obj.author == self.context.get('request').user
     

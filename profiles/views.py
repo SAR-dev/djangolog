@@ -59,13 +59,13 @@ class ProfilesRetriveView(generics.RetrieveAPIView):
     queryset = Profiles.objects.all()
     serializer_class = ProfilesReadSerializer
 
-class SelfProfilesRetriveView(generics.RetrieveAPIView):
+class ProfilesRetriveByUsernameView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfilesReadSerializer
 
     def get_object(self):
         try:
-            return Profiles.objects.get(author__id=self.request.user.id)
+            return Profiles.objects.get(author__username=self.kwargs['username'])
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
 
