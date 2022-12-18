@@ -18,6 +18,9 @@ class Package(models.Model):
         models.CharField(max_length=100, blank=True), size=8, default=list
     )
     revisions = models.IntegerField()
+    prototype = models.BooleanField(default=False)
+    content_upload = models.BooleanField(default=False)
+    source_file = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -18,6 +18,9 @@ class PackageWriteSerializer(serializers.ModelSerializer):
             "enabled_services",
             "disabled_services",
             "revisions",
+            "prototype",
+            "content_upload",
+            "source_file",
             "created_at",
             "updated_at",
         ]
@@ -39,6 +42,9 @@ class PackageReadSerializer(serializers.ModelSerializer):
             "enabled_services",
             "disabled_services",
             "revisions",
+            "prototype",
+            "content_upload",
+            "source_file",
             "created_at",
             "updated_at",
         ]
