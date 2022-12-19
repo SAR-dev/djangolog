@@ -46,7 +46,7 @@ class Gig(models.Model):
         models.CharField(max_length=200, blank=True), size=8, default=list
     )
     requirements = ArrayField(
-        models.CharField(max_length=200, blank=True), size=8, default=list
+        models.CharField(max_length=500, blank=True), size=8, default=list
     )
 
     upvotes = models.ManyToManyField(User, related_name="gig_upvotes",  default=None, blank=True)
