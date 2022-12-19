@@ -6,6 +6,7 @@ from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
 from django_filters import rest_framework as filters
 from utils.paginations import PazeSizePagination
+from rest_framework.exceptions import ValidationError
 
 class IsPackageAuthor(permissions.BasePermission):
     message = 'You can not view this route!'
@@ -59,4 +60,16 @@ class PackageUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsPackageAuthor]
     queryset = Package.objects.all()
     serializer_class = PackageWriteSerializer
+
+class PackageBulkCreateView(generics.CreateAPIView):
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+        
+    serializer_class = PackageWriteSerializer
+    queryset = Package.objects.all()
+
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+        return super(PackageBulkCreateView, self).get_serializer(*args, **kwargs)
 
