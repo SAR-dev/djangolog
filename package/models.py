@@ -11,16 +11,14 @@ class Package(models.Model):
     title = models.CharField(max_length=20, null=True, blank=True)
     description = models.TextField()
     duration_in_days = models.IntegerField()
-    enabled_services = ArrayField(
-        models.CharField(max_length=100, blank=True), size=8, default=list
-    )
-    disabled_services = ArrayField(
-        models.CharField(max_length=100, blank=True), size=8, default=list
-    )
     revisions = models.IntegerField()
+    
     prototype = models.BooleanField(default=False)
     content_upload = models.BooleanField(default=False)
     source_file = models.BooleanField(default=False)
+    consulatation = models.BooleanField(default=False)
+    deployment = models.BooleanField(default=False)
+    integration = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
