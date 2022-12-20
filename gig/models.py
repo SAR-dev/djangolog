@@ -3,13 +3,14 @@ from image.models import Image
 from django.contrib.postgres.fields import ArrayField
 from category.models import Category
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 
 User = get_user_model()
 
 
 class Gig(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=150, null=True, blank=True)
+    title = models.CharField(max_length=150, null=True, blank=True, validators=[MinLengthValidator(15)])
     description = models.TextField()
     images = models.ManyToManyField(
         Image, related_name="gig_images", blank=True
