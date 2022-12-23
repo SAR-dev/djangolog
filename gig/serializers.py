@@ -7,6 +7,7 @@ from category.serializers import CategorySerializer
 from image.serializers import ImageSerializer
 from django.db.models import Avg
 from package.serializers import PackageReadSerializer
+from image.models import Image
 
 class GigWriteSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
@@ -16,6 +17,7 @@ class GigWriteSerializer(serializers.ModelSerializer):
     downvoted = serializers.SerializerMethodField()
     total_ratings = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
+    src_images = serializers.SerializerMethodField()
 
     class Meta:
         model = Gig
@@ -43,6 +45,7 @@ class GigWriteSerializer(serializers.ModelSerializer):
             "average_rating",
             "created_at",
             "updated_at",
+            "src_images"
         ]
         read_only_fields = []
 
@@ -63,6 +66,11 @@ class GigWriteSerializer(serializers.ModelSerializer):
     
     def get_average_rating(self, obj):
         return Comment.ratings.filter(gig_id = obj.id).aggregate(Avg("rating"))
+    
+    def get_src_images(self, obj):
+        objects = ImageSerializer(data=obj.images.all(), many=True)
+        objects.is_valid()
+        return objects.data
 
 class GigReadSerializer(serializers.ModelSerializer):
     author = UserWithRatingsSerializer(read_only=True)
