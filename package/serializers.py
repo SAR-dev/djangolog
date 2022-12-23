@@ -11,8 +11,6 @@ class PackageWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Package
         fields = [
-            "gig",
-            "price",
             "title",
             "description",
             "duration_in_days",
@@ -23,8 +21,7 @@ class PackageWriteSerializer(serializers.ModelSerializer):
             "consulatation",
             "deployment",
             "integration",
-            "created_at",
-            "updated_at",
+            "price"
         ]
         read_only_fields = ["id"]
         list_serializer_class = PackageBulkCreateSerializer
