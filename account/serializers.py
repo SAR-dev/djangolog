@@ -11,7 +11,7 @@ User = get_user_model()
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'avatar']
+        fields = ['id', 'first_name', 'last_name', 'username', 'avatar']
 
 class UserAvatarUpdateSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,6 +11,7 @@ class PackageWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Package
         fields = [
+            "id",
             "title",
             "description",
             "duration_in_days",
