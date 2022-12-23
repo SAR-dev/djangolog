@@ -8,13 +8,9 @@ class PackageBulkCreateSerializer(serializers.ListSerializer):
         return Package.objects.bulk_create(package_data)
     
 class PackageWriteSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
-
     class Meta:
         model = Package
         fields = [
-            "id",
-            "author",
             "gig",
             "price",
             "title",
@@ -24,6 +20,9 @@ class PackageWriteSerializer(serializers.ModelSerializer):
             "prototype",
             "content_upload",
             "source_file",
+            "consulatation",
+            "deployment",
+            "integration",
             "created_at",
             "updated_at",
         ]
@@ -47,6 +46,9 @@ class PackageReadSerializer(serializers.ModelSerializer):
             "prototype",
             "content_upload",
             "source_file",
+            "consulatation",
+            "deployment",
+            "integration",
             "created_at",
             "updated_at",
         ]
