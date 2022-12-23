@@ -18,6 +18,7 @@ class GigWriteSerializer(serializers.ModelSerializer):
     total_ratings = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
     src_images = serializers.SerializerMethodField()
+    src_packages = serializers.SerializerMethodField()
 
     class Meta:
         model = Gig
@@ -45,7 +46,8 @@ class GigWriteSerializer(serializers.ModelSerializer):
             "average_rating",
             "created_at",
             "updated_at",
-            "src_images"
+            "src_images",
+            "src_packages"
         ]
         read_only_fields = []
 
@@ -69,6 +71,11 @@ class GigWriteSerializer(serializers.ModelSerializer):
     
     def get_src_images(self, obj):
         objects = ImageSerializer(data=obj.images.all(), many=True)
+        objects.is_valid()
+        return objects.data
+    
+    def get_src_packages(self, obj):
+        objects = PackageReadSerializer(data=Package.objects.filter(gig_id=obj.id), many=True)
         objects.is_valid()
         return objects.data
 
