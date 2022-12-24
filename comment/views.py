@@ -17,19 +17,6 @@ class IsCommentAuthor(permissions.BasePermission):
             return author
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
-        
-class CommentFilter(filters.FilterSet):
-    o = filters.OrderingFilter(
-        fields=(
-            ('created_at', 'created_at'),
-        ),
-    )
-    class Meta:
-        model = Comment
-        fields = {
-            'comment__id': ['exact'],
-            'comment__author__username': ['exact'],
-        }
 
 class CommentCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
@@ -45,14 +32,12 @@ class CommentCreateView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentWriteSerializer
     pagination_class = PazeSizePagination
-    filterset_class = CommentFilter
 
 class CommentListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Comment.objects.all()
     serializer_class = CommentReadSerializer
     pagination_class = PazeSizePagination
-    filterset_class = CommentFilter
 
 class CommentRetriveView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
