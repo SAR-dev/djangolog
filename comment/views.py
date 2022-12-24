@@ -27,17 +27,17 @@ class CommentFilter(filters.FilterSet):
     class Meta:
         model = Comment
         fields = {
-            'gig__id': ['exact'],
-            'gig__author__username': ['exact'],
+            'comment__id': ['exact'],
+            'comment__author__username': ['exact'],
         }
 
 class CommentCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         rated = False
         if self.request.data["rating"]:  # type: ignore
-            rated = Comment.ratings.filter(gig_id=self.request.data['gig']).exists()  # type: ignore
+            rated = Comment.ratings.filter(comment_id=self.request.data['comment']).exists()  # type: ignore
         if(rated == True):
-            raise NotFound(detail="Error 404, You have already rated this gig!", code=404)
+            raise NotFound(detail="Error 404, You have already rated this comment!", code=404)
         else:
             serializer.save(author=self.request.user)
 
@@ -60,7 +60,80 @@ class CommentRetriveView(generics.RetrieveAPIView):
     serializer_class = CommentReadSerializer
 
 class CommentUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    def perform_create(self, serializer):
+        rated = False
+        if self.request.data["rating"]:  # type: ignore
+            rated = Comment.ratings.filter(comment_id=self.request.data['comment']).exists()  # type: ignore
+        if(rated == True):
+            raise NotFound(detail="Error 404, You have already rated this comment!", code=404)
+        else:
+            serializer.save()
+
     permission_classes = [IsCommentAuthor]
     queryset = Comment.objects.all()
     serializer_class = CommentWriteSerializer
 
+class CommentUpVoteView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            comment = Comment.objects.get(pk=pk)
+            if request.user not in comment.upvotes.all():
+                comment.upvotes.add(request.user)
+                comment.downvotes.remove(request.user)
+            return response.Response(
+                {
+                    "num_vote_up": comment.upvotes.count(),
+                    "num_vote_down": comment.downvotes.count(),
+                }
+            )
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+        
+    def delete(self, request, pk):
+        try:
+            comment = Comment.objects.get(pk=pk)
+            if request.user in comment.upvotes.all():
+                comment.upvotes.remove(request.user)
+            return response.Response(
+                {
+                    "num_vote_up": comment.upvotes.count(),
+                    "num_vote_down": comment.downvotes.count(),
+                }
+            )
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+class CommentDownVoteView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            comment = Comment.objects.get(pk=pk)
+            if request.user not in comment.downvotes.all():
+                comment.downvotes.add(request.user)
+                comment.upvotes.remove(request.user)
+            return response.Response(
+                {
+                    "num_vote_up": comment.upvotes.count(),
+                    "num_vote_down": comment.downvotes.count(),
+                }
+            )
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+        
+    def delete(self, request, pk):
+        try:
+            comment = Comment.objects.get(pk=pk)
+            if request.user in comment.downvotes.all():
+                comment.downvotes.remove(request.user)
+            return response.Response(
+                {
+                    "num_vote_up": comment.upvotes.count(),
+                    "num_vote_down": comment.downvotes.count(),
+                }
+            )
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+        
