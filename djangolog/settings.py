@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     "gig",
     "profiles",
     "chat",
-    "package"
+    "package",
+    "advertisement"
 ]
 
 if RENDER == 'RENDER':
