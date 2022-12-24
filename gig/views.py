@@ -6,7 +6,7 @@ from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
 from django_filters import rest_framework as filters
 from utils.paginations import PazeSizePagination
-
+from django.db.models import Q
 
 class IsGigAuthor(permissions.BasePermission):
     message = "You can not view this route!"
@@ -66,6 +66,18 @@ class GigListView(generics.ListAPIView):
     serializer_class = GigReadSerializer
     pagination_class = PazeSizePagination
     filterset_class = GigFilter
+
+class GigSearchView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GigReadSerializer
+    pagination_class = PazeSizePagination
+
+    def get_queryset(self):
+        keyword = self.kwargs["keyword"]
+        if (len(keyword) < 3):
+            raise NotFound(detail="Search keyword too short", code=404)
+        else:
+            return Gig.objects.filter(Q(tags__contains=[keyword]) | Q(title__contains=keyword))
 
 
 class GigRetriveView(generics.RetrieveAPIView):
