@@ -8,6 +8,11 @@ from django.db.models import Avg
 from profiles.serializers import ProfilesReadSerializer
 User = get_user_model()
 
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
