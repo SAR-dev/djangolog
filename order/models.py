@@ -10,12 +10,29 @@ User = get_user_model()
 
 
 class Order(models.Model):
+    class Pending(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='pending')
+
+    class Active(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='active')
+
+    class Delayed(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='delayed')
+
+    class Dropped(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='dropped')
+
     STATUS_CHOICES = (
         ('pending', 'Pending'),
         ('active', 'Active'),
         ('completed', 'Completed'),
-        ('late', 'Late'),
+        ('delayed', 'Delayed'),
         ('cancelled', 'Cancelled'),
+        ('dropped', 'Dropped'),
     )
 
     buyer = models.ForeignKey(User, related_name="order_buyer", on_delete=models.DO_NOTHING)
@@ -28,6 +45,10 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
+    pending = Pending()
+    active = Active()
+    delayed = Delayed()
+    dropped = Dropped()
 
     @property
     def num_vote_up(self):

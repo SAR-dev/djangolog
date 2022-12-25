@@ -64,7 +64,7 @@ class OrderAcceptView(views.APIView):
 
     def post(self, request, pk):
         try:
-            order = Order.objects.get(id=pk)
+            order = Order.pending.get(id=pk)
             if request.user.id == order.package.author.id:
                 order.status = "accepted"
                 order.save()
@@ -74,13 +74,69 @@ class OrderAcceptView(views.APIView):
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
 
+    def delete(self, request, pk):
         try:
-            order = Order.objects.get(id=pk)
+            order = Order.pending.get(id=pk)
             if request.user.id == order.package.author.id:
                 order.status = "cancelled"
                 order.save()
             return response.Response({
                 'cancelled': True
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+
+class OrderDelayView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            order = Order.active.get(id=pk)
+            if request.user.id == order.package.author.id:
+                order.status = "delayed"
+                order.save()
+            return response.Response({
+                'delayed': True
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+    def delete(self, request, pk):
+        try:
+            order = Order.delayed.get(id=pk)
+            if request.user.id == order.package.author.id:
+                order.status = "active"
+                order.save()
+            return response.Response({
+                'active': True
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+class OrderDropView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            order = Order.active.get(id=pk)
+            if request.user.id == order.package.author.id:
+                order.status = "dropped"
+                order.save()
+            return response.Response({
+                'dropped': True
+            })
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
+
+    def delete(self, request, pk):
+        try:
+            order = Order.dropped.get(id=pk)
+            if request.user.id == order.package.author.id:
+                order.status = "active"
+                order.save()
+            return response.Response({
+                'active': True
             })
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
