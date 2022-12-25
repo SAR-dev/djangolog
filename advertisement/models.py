@@ -32,4 +32,4 @@ class Advertisement(models.Model):
     objects = models.Manager()
     
     def __str__(self):
-        return str(self.subject)
+        return str(self.title)
