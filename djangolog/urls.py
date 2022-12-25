@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/chat/', include('chat.urls', namespace='chat')),
     path('api/profile/', include('profiles.urls', namespace='profile')),
     path('api/advertisement/', include('advertisement.urls', namespace='advertisement')),
+    path('api/order/', include('order.urls', namespace='order')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

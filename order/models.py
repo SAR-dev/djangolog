@@ -19,8 +19,6 @@ class Order(models.Model):
     )
 
     buyer = models.ForeignKey(User, related_name="order_buyer", on_delete=models.DO_NOTHING)
-    seller = models.ForeignKey(User, related_name="order_seller", on_delete=models.DO_NOTHING)
-    gig = models.ForeignKey(Gig, related_name="order_gig", on_delete=models.DO_NOTHING)
     package = models.ForeignKey(Package, related_name="order_package", on_delete=models.DO_NOTHING)
     note = models.CharField(max_length=350, null=True, blank=True, validators=[MinLengthValidator(15)])
     due_on = models.DateTimeField()
