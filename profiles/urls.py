@@ -8,6 +8,6 @@ urlpatterns = [
     path('list/', ProfilesListView.as_view(), name='profile-list'),
     path('username/<str:username>/', ProfilesRetriveByUsernameView.as_view(), name='profile-list'),
     path('follow/<str:username>/', FollowView.as_view(), name='follow'),
-    path('<pk>/', ProfilesRetriveView.as_view(), name='profile-retrive'),
-    path('<pk>/update/', ProfilesUpdateDestroyView.as_view(), name='profile-update-destroy'),
+    path('me/', ProfilesRetriveView.as_view(), name='profile-retrive'),
+    path('me/update/', ProfilesUpdateDestroyView.as_view(), name='profile-update-destroy'),
 ]

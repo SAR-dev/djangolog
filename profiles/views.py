@@ -56,8 +56,13 @@ class ProfilesListView(generics.ListAPIView):
 
 class ProfilesRetriveView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Profiles.objects.all()
     serializer_class = ProfilesReadSerializer
+
+    def get_object(self):
+        try:
+            return Profiles.objects.get(author__id=self.request.user.id)
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
 
 class ProfilesRetriveByUsernameView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -71,8 +76,13 @@ class ProfilesRetriveByUsernameView(generics.RetrieveAPIView):
 
 class ProfilesUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsProfilesAuthor]
-    queryset = Profiles.objects.all()
     serializer_class = ProfilesWriteSerializer
+
+    def get_object(self):
+        try:
+            return Profiles.objects.get(author__id=self.request.user.id)
+        except ObjectDoesNotExist:
+            raise NotFound(detail="Error 404, Not Found!", code=404)
 
 class FollowView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
