@@ -75,7 +75,7 @@ class ProfilesRetriveByUsernameView(generics.RetrieveAPIView):
             raise NotFound(detail="Error 404, Not Found!", code=404)
 
 class ProfilesUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsProfilesAuthor]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfilesWriteSerializer
 
     def get_object(self):
