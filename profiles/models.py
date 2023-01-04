@@ -2,7 +2,9 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
+
 
 class Profiles(models.Model):
     BLOOD_GROUPS = (
@@ -57,9 +59,10 @@ class Profiles(models.Model):
 
     objects = models.Manager()
 
-    class Meta:
-        verbose_name = "Profile"
-        verbose_name_plural = "Profiles"
-
     def __str__(self):
         return str(self.author)
+
+    class Meta:
+        db_table = "profiles"
+        verbose_name = "Profile"
+        verbose_name_plural = "Profiles"

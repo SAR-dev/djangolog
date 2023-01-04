@@ -54,7 +54,7 @@ class ProfilesListView(generics.ListAPIView):
     filterset_class = ProfilesFilter
 
 
-class ProfilesRetriveView(generics.RetrieveAPIView):
+class ProfilesRetrieveView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfilesReadSerializer
 
@@ -64,7 +64,7 @@ class ProfilesRetriveView(generics.RetrieveAPIView):
         except ObjectDoesNotExist:
             raise NotFound(detail="Error 404, Not Found!", code=404)
 
-class ProfilesRetriveByUsernameView(generics.RetrieveAPIView):
+class ProfilesRetrieveByUsernameView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfilesReadSerializer
 

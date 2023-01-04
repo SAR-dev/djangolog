@@ -87,5 +87,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return str(self.username)
 
     class Meta:
-       ordering = ['-id']
+        db_table = "accounts"
+        ordering = ['-id']
 

@@ -40,3 +40,6 @@ class Image(models.Model):
 
     def __str__(self):
         return str(self.image)
+
+    class Meta:
+        db_table = "images"

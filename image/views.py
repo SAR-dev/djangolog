@@ -5,7 +5,7 @@ from .models import Image
 from rest_framework import generics
 from utils.paginations import PazeSizePagination
 
-class ImageRetriveView(generics.RetrieveAPIView):
+class ImageRetrieveView(generics.RetrieveAPIView):
     serializer_class = ImageSerializer
     queryset = Image.objects.all()
     pagination_class = PazeSizePagination
