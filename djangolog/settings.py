@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "cloudinary_storage",
-    "cloudinary",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
@@ -53,16 +51,7 @@ INSTALLED_APPS = [
     
     "account",
     "image",
-    "category",
-    "tag",
-    "contact",
-    "comment",
-    "gig",
-    "profiles",
-    "chat",
-    "package",
-    "advertisement",
-    "order"
+    "profiles"
 ]
 
 if RENDER == 'RENDER':
@@ -114,12 +103,12 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 if RENDER == 'RENDER':
-    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db'
+    db = 'postgres://qvento_user:t464xmkon8l8kQwCPDAHMqOpCjctnuv1@dpg-ceqd3d82i3mov0h2u1ag-a/qvento'
 else:
-    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a/protefalan_db'
+    db = 'postgres://qvento_user:t464xmkon8l8kQwCPDAHMqOpCjctnuv1@dpg-ceqd3d82i3mov0h2u1ag-a.oregon-postgres.render.com/qvento'
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db')
+    'default': dj_database_url.config(default=db)
 }
 
 # Password validation
@@ -193,11 +182,3 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dp950wcde',
-    'API_KEY': '757696267355543',
-    'API_SECRET': 'xOltrBktHa6DrUcCNGtYwJYDfic'
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -1,12 +1,8 @@
 import os
 from uuid import uuid4
-
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, PermissionsMixin)
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 from django.utils.deconstruct import deconstructible
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit

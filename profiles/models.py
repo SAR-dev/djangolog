@@ -1,11 +1,8 @@
 from django.db import models
-from gig.models import Gig
 from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
-
 User = get_user_model()
-
 
 class Profiles(models.Model):
     BLOOD_GROUPS = (
@@ -26,8 +23,6 @@ class Profiles(models.Model):
 
     author = models.OneToOneField(User, on_delete=models.CASCADE)
     nick_name = models.CharField(max_length=100, null=True, blank=True)
-    bio = models.CharField(max_length=500, null=True, blank=True)
-    quote = models.CharField(max_length=100, null=True, blank=True)
     blood_group = models.CharField(
         max_length=100, null=True, blank=True, choices=BLOOD_GROUPS
     )
@@ -52,22 +47,10 @@ class Profiles(models.Model):
             ),
         ],
     )
-    website = models.URLField(max_length=100, unique=True, null=True, blank=True)
+    social_links = ArrayField(
+        models.CharField(max_length=100, blank=True), size=8, default=list
+    )
     location = models.CharField(max_length=100, null=True, blank=True)
-    languages = ArrayField(
-        models.CharField(max_length=100, blank=True), size=8, default=list
-    )
-    facebook = models.URLField(max_length=100, null=True, blank=True)
-    github = models.URLField(max_length=100, null=True, blank=True)
-    twitter = models.URLField(max_length=100, null=True, blank=True)
-    educations = ArrayField(
-        models.CharField(max_length=100, blank=True), size=8, default=list
-    )
-    certifications = ArrayField(
-        models.CharField(max_length=100, blank=True), size=8, default=list
-    )
-    bookmarks = models.ManyToManyField(Gig, related_name="bookmarks")
-    followers = models.ManyToManyField(User, related_name='followers', default=None, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -77,10 +60,6 @@ class Profiles(models.Model):
     class Meta:
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
-
-    @property
-    def followers_count(self):
-        return self.followers.count()
 
     def __str__(self):
         return str(self.author)
