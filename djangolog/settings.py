@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django_cleanup",
     "corsheaders",
     "rest_framework_simplejwt",
+    "vote",
     
     "account",
     "image",
