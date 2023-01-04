@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-
 class Profiles(models.Model):
     BLOOD_GROUPS = (
         ("a+", "A+"),
