@@ -1,3 +1,48 @@
 from django.db import models
+from event.models import Event
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+User = get_user_model()
+
+
+class Comment(models.Model):
+    class CommentWithoutRating(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(rating__isnull = True)
+        
+    class CommentWithRating(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(rating__isnull = False)
+        
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    rating = models.IntegerField(
+        validators=[MaxValueValidator(10), MinValueValidator(1)], null=True, blank=True
+    )
+    upvotes = models.ManyToManyField(
+        User, related_name="comment_upvotes", default=None, blank=True
+    )
+    downvotes = models.ManyToManyField(
+        User, related_name="comment_downvotes", default=None, blank=True
+    )
+
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    comments = CommentWithoutRating()
+    ratings = CommentWithRating()
+
+    @property
+    def num_vote_up(self):
+        return self.upvotes.count()
+
+    @property
+    def num_vote_down(self):
+        return self.downvotes.count()
+
+    def __str__(self):
+        return str(self.message[:30])

@@ -32,8 +32,8 @@ class Event(models.Model):
     description = models.TextField()
     start_at=models.DateTimeField()
     finish_at=models.DateTimeField()
-    cover = models.ForeignKey(Image, on_delete=models.CASCADE, blank=True)
-    images = models.ManyToManyField(Image, blank=True)
+    cover = models.ForeignKey(Image, related_name="cover", on_delete=models.CASCADE, blank=True)
+    images = models.ManyToManyField(Image, related_name="images", blank=True)
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -68,8 +68,8 @@ class Event(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='published')
     type = models.CharField(max_length=15, choices=TYPE_CHOICES, default='free')
 
-    upvotes = models.ManyToManyField(User, related_name="gig_upvotes",  default=None, blank=True)
-    downvotes = models.ManyToManyField(User, related_name="gig_downvotes",  default=None, blank=True)
+    upvotes = models.ManyToManyField(User, related_name="event_upvotes",  default=None, blank=True)
+    downvotes = models.ManyToManyField(User, related_name="event_downvotes",  default=None, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -52,7 +52,10 @@ INSTALLED_APPS = [
     
     "account",
     "image",
-    "profiles"
+    "profiles",
+    "category",
+    "comment",
+    "event",
 ]
 
 if RENDER == 'RENDER':
