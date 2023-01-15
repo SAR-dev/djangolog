@@ -78,7 +78,7 @@ docs/_build/
 target/
 media/
 venv/
-static/
+# static/
 
 ### Django ###
 *.log
