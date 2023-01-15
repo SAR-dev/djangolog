@@ -1,29 +1,31 @@
 from rest_framework import serializers
-from .models import Comment
+from .models import Post
 from account.serializers import UserSerializer
 
-class CommentWriteSerializer(serializers.ModelSerializer):
+class PostWriteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = Post
         fields = [
-            "message",
-            "rating",
+            "content",
+            "images",
+            "status",
             "event",
         ]
         read_only_fields = []
 
-class CommentReadSerializer(serializers.ModelSerializer):
+class PostReadSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     upvoted = serializers.SerializerMethodField()
     downvoted = serializers.SerializerMethodField()
 
     class Meta:
-        model = Comment
+        model = Post
         fields = [
             "id",
             "author",
-            "message",
-            "rating",
+            "content",
+            "images",
+            "status",
             "event",
             "num_vote_up",
             "num_vote_down",

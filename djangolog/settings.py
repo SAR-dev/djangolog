@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "category",
     "comment",
     "event",
+    "post"
 ]
 
 if RENDER == 'RENDER':

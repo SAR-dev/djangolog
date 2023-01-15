@@ -19,5 +19,6 @@ urlpatterns = [
     path('api/profile/', include('profiles.urls', namespace='profile')),
     path('api/category/', include('category.urls', namespace='category')),
     path('api/comment/', include('comment.urls', namespace='comment')),
-    path('api/event/', include('event.urls', namespace='event'))
+    path('api/event/', include('event.urls', namespace='event')),
+    path('api/event/', include('event.urls', namespace='post'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

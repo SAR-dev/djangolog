@@ -22,9 +22,9 @@ class CommentCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         rated = False
         if self.request.data["rating"]:  # type: ignore
-            rated = Comment.ratings.filter(author_id=self.request.user.id, event_id=self.request.data['event']).exists()  # type: ignore
+            rated = Comment.ratings.filter(author_id=self.request.user.id, event_id=self.request.data['event']).exists()
         if(rated == True):
-            raise NotFound(detail="Error 404, You have already rated this comment!", code=404)
+            raise NotFound(detail="Error 404, You have already rated!", code=404)
         else:
             serializer.save(author=self.request.user)
 
@@ -50,7 +50,7 @@ class CommentUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.data["rating"]: 
             rated = Comment.ratings.filter(author_id=self.request.user.id, event_id=self.request.data['event']).exists() 
         if(rated == True):
-            raise NotFound(detail="Error 404, You have already rated this comment!", code=404)
+            raise NotFound(detail="Error 404, You have already rated!", code=404)
         else:
             serializer.save()
 
