@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-_fz4(iiw+j2*3t*+#vi#%sf63j7-rk94-*&@ad9k=*t6ue7zs@')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-_jgfry__fz4(iiw+j2*3t*+#vi#%sf63j7-rk94-*&@ad9k=*t6ue7zs@')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -56,7 +56,10 @@ INSTALLED_APPS = [
     "category",
     "comment",
     "event",
-    "post"
+    "post",
+    "ticket",
+    "paythod",
+    "package"
 ]
 
 if RENDER == 'RENDER':
@@ -174,7 +177,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -187,3 +190,11 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dhfpqhor4',
+    'API_KEY': '217223697323117',
+    'API_SECRET': 'vPLRfLi_Tjo2r8P2JI1mlK1oABA'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
