@@ -25,4 +25,6 @@ urlpatterns = [
     path('api/profile/', include('profiles.urls', namespace='profile')),
     path('api/advertisement/', include('advertisement.urls', namespace='advertisement')),
     path('api/order/', include('order.urls', namespace='order')),
+    path('api/event/', include('event.urls', namespace='event')),
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

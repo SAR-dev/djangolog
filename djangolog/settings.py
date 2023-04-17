@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django_cleanup",
     "corsheaders",
     "rest_framework_simplejwt",
+    "tinymce",
     
     "account",
     "image",
@@ -62,7 +63,8 @@ INSTALLED_APPS = [
     "chat",
     "package",
     "advertisement",
-    "order"
+    "order",
+    "event"
 ]
 
 if RENDER == 'RENDER':
@@ -114,12 +116,12 @@ WSGI_APPLICATION = "djangolog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 if RENDER == 'RENDER':
-    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db'
+    db = 'postgres://protefalan_db_t92b_user:4OKkxUjLGF2xeps6FFLlpeOi47dwUDGs@dpg-cgu8s9t269vbmepn09j0-a/protefalan_db_t92b'
 else:
-    db = 'postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a/protefalan_db'
+    db = 'postgres://protefalan_db_t92b_user:4OKkxUjLGF2xeps6FFLlpeOi47dwUDGs@dpg-cgu8s9t269vbmepn09j0-a.singapore-postgres.render.com/protefalan_db_t92b'
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://protefalan_db_user:zZghlcKUKVrCWV3oRPmu5X90PSHeJ8FC@dpg-cebeno5a4996medr5ofg-a.singapore-postgres.render.com/protefalan_db')
+    'default': dj_database_url.config(default='postgres://protefalan_db_t92b_user:4OKkxUjLGF2xeps6FFLlpeOi47dwUDGs@dpg-cgu8s9t269vbmepn09j0-a.singapore-postgres.render.com/protefalan_db_t92b')
 }
 
 # Password validation
